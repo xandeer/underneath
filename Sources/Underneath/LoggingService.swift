@@ -71,23 +71,21 @@ extension Logger {
     )
   }
 
-  #if canImport(UIKit) && !os(watchOS)
-    @MainActor
-    public static func shareLogs() {
-      let docs = FileManager.default
-        .urls(for: .documentDirectory, in: .userDomainMask)[0]
-        .appendingPathComponent("logs")
+  @MainActor
+  public static func getLogs() -> [URL]? {
+    let docs = FileManager.default
+      .urls(for: .documentDirectory, in: .userDomainMask)[0]
+      .appendingPathComponent("logs")
 
-      let files = (try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil)) ?? []
+    let files = (try? FileManager.default.contentsOfDirectory(at: docs, includingPropertiesForKeys: nil)) ?? []
 
-      guard !files.isEmpty else {
-        Logger(label: "Log").warning("No log files found to share")
-        return
-      }
-
-      ShareActivity.show(for: files)
+    guard !files.isEmpty else {
+      Logger(label: "Log").warning("No log files found to share")
+      return nil
     }
-  #endif
+
+    return files
+  }
 }
 
 // Custom log formatter with timestamps
