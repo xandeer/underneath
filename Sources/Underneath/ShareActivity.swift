@@ -5,8 +5,7 @@
 //  Created by Kevin Du on 7/15/25.
 //
 
-#if canImport(UIKit)
-#if !os(watchOS)
+#if canImport(UIKit) && !os(watchOS)
   import Logging
   import UIKit
 
@@ -44,5 +43,4 @@
       rootViewController.present(activityVC, animated: true)
     }
   }
-#endif
 #endif

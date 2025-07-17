@@ -71,7 +71,7 @@ extension Logger {
     )
   }
 
-  #if canImport(UIKit)
+  #if canImport(UIKit) && !os(watchOS)
     @MainActor
     public static func shareLogs() {
       let docs = FileManager.default
