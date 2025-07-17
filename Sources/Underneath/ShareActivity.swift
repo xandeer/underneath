@@ -8,9 +8,41 @@
 #if canImport(UIKit) && !os(watchOS)
   import Logging
   import UIKit
+  import SwiftUI
+
+  @Observable
+  public class ShareController {
+    var isPresented: Bool = false
+    var activityItems: [Any] = []
+
+    @MainActor
+    func share(items: [Any]) {
+      self.activityItems = items
+      self.isPresented = true
+    }
+
+    @MainActor
+    func share(_ item: Any) {
+      share(items: [item])
+    }
+  }
 
   extension URL: @retroactive Identifiable {
     public var id: String { path() }
+  }
+
+  struct ActivityView: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+      UIActivityViewController(
+        activityItems: activityItems,
+        applicationActivities: applicationActivities
+      )
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
   }
 
   public struct ShareActivity {
