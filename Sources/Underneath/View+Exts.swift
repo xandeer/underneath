@@ -8,11 +8,13 @@
 #if canImport(UIKit)
   import SwiftUI
 
-  extension View {
-    public func snapshot() -> UIImage? {
-      let r = ImageRenderer(content: self)
-      r.scale = UIScreen.main.scale
-      return r.uiImage
+  #if !os(watchOS)
+    extension View {
+      public func snapshot() -> UIImage? {
+        let r = ImageRenderer(content: self)
+        r.scale = UIScreen.main.scale
+        return r.uiImage
+      }
     }
-  }
+  #endif
 #endif

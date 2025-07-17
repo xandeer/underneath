@@ -6,6 +6,7 @@
 //
 
 #if canImport(UIKit)
+#if !os(watchOS)
   import Logging
   import UIKit
 
@@ -43,4 +44,5 @@
       rootViewController.present(activityVC, animated: true)
     }
   }
+#endif
 #endif
