@@ -85,7 +85,7 @@ extension Logger {
         return
       }
 
-      showShareActivity(activityItems: files)
+      ShareActivity.show(for: files)
     }
   #endif
 }

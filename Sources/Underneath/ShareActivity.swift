@@ -13,12 +13,9 @@
     public var id: String { path() }
   }
 
-  public struct ActivityForShare {
-  }
-
-  extension ActivityForShare {
+  public struct ShareActivity {
     @MainActor
-    public static func show(activityItems: [Any]) {
+    public static func show(for activityItems: [Any]) {
       // Get root view controller
       guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
         let window = windowScene.windows.first,
