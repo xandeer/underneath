@@ -15,6 +15,11 @@
     public var isPresented: Bool = false
     public var activityItems: [Any] = []
 
+    public init(isPresented: Bool = false, activityItems: [Any] = []) {
+      self.isPresented = isPresented
+      self.activityItems = activityItems
+    }
+
     @MainActor
     public func share(items: [Any]) {
       self.activityItems = items
