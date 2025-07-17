@@ -20,7 +20,7 @@ extension Logger {
     // 2. File rotation logger with timestamp
     let fileURL = FileManager.default
       .urls(for: .documentDirectory, in: .userDomainMask)[0]
-      .appendingPathComponent("logs/picpin.log")
+      .appendingPathComponent("logs/\(label).log")
 
     let rotationConfig = RotationConfig(
       suffixExtension: .date_uuid,
