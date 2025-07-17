@@ -14,6 +14,9 @@
   }
 
   public struct ActivityForShare {
+  }
+
+  extension ActivityForShare {
     @MainActor
     public static func show(activityItems: [Any]) {
       // Get root view controller
