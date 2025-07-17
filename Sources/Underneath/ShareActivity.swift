@@ -15,7 +15,7 @@
 
   public struct ShareActivity {
     @MainActor
-    public static func show(for activityItems: [Any]) {
+    public static func show(for activityItems: [Any], onDisappear: (() -> Void)? = nil) {
       // Get root view controller
       guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
         let window = windowScene.windows.first,
@@ -27,6 +27,11 @@
 
       // Create activity view controller with activityItems
       let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+      if let onDisappear = onDisappear {
+        activityVC.completionWithItemsHandler = { _, _, _, _ in
+          onDisappear()
+        }
+      }
 
       // Configure for iPad
       if let popover = activityVC.popoverPresentationController {
