@@ -39,8 +39,8 @@
   public struct ActivityView: UIViewControllerRepresentable {
     public let activityItems: [Any]
     public var applicationActivities: [UIActivity]? = nil
-    
-    init(activityItems: [Any], applicationActivities: [UIActivity]? = nil) {
+
+    public init(activityItems: [Any], applicationActivities: [UIActivity]? = nil) {
       self.activityItems = activityItems
       self.applicationActivities = applicationActivities
     }
