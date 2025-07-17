@@ -12,17 +12,17 @@
 
   @Observable
   public class ShareController {
-    var isPresented: Bool = false
-    var activityItems: [Any] = []
+    public var isPresented: Bool = false
+    public var activityItems: [Any] = []
 
     @MainActor
-    func share(items: [Any]) {
+    public func share(items: [Any]) {
       self.activityItems = items
       self.isPresented = true
     }
 
     @MainActor
-    func share(_ item: Any) {
+    public func share(_ item: Any) {
       share(items: [item])
     }
   }
