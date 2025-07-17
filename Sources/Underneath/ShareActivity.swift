@@ -36,18 +36,18 @@
     public var id: String { path() }
   }
 
-  struct ActivityView: UIViewControllerRepresentable {
+  public struct ActivityView: UIViewControllerRepresentable {
     let activityItems: [Any]
     var applicationActivities: [UIActivity]? = nil
 
-    func makeUIViewController(context: Context) -> UIActivityViewController {
+    public func makeUIViewController(context: Context) -> UIActivityViewController {
       UIActivityViewController(
         activityItems: activityItems,
         applicationActivities: applicationActivities
       )
     }
 
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+    public func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
   }
 
   public struct ShareActivity {
