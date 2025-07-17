@@ -28,9 +28,10 @@
       // Create activity view controller with activityItems
       let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
       if let onDisappear = onDisappear {
-        activityVC.completionWithItemsHandler = { _, _, _, _ in
-          onDisappear()
-        }
+        let delegate = ActivityDelegate(onDisappear: onDisappear)
+        activityVC.presentationController?.delegate = delegate
+        // 需要把 delegate 强引用保存，避免被释放（比如关联到 activityVC）
+        objc_setAssociatedObject(activityVC, "activityDelegate", delegate, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
       }
 
       // Configure for iPad
@@ -46,6 +47,18 @@
       }
 
       rootViewController.present(activityVC, animated: true)
+    }
+  }
+
+  class ActivityDelegate: NSObject, UIAdaptivePresentationControllerDelegate {
+    let onDisappear: () -> Void
+
+    init(onDisappear: @escaping () -> Void) {
+      self.onDisappear = onDisappear
+    }
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+      onDisappear()
     }
   }
 #endif
