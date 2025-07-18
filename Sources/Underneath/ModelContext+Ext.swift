@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 extension ModelContext {
-  func persistentModel<T>(withID objectID: PersistentIdentifier) throws -> T?
+  public func persistentModel<T>(withID objectID: PersistentIdentifier) throws -> T?
   where T: PersistentModel {
     if let registered: T = registeredModel(for: objectID) {
       return registered
@@ -43,7 +43,7 @@ extension Model {
 }
 
 extension ModelContext {
-  func getOptional<T>(_ model: Model<T>) throws -> T?
+  public func getOptional<T>(_ model: Model<T>) throws -> T?
   where T: PersistentModel {
     try self.persistentModel(withID: model.persistentIdentifier)
   }
