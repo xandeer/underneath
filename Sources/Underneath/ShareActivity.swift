@@ -9,6 +9,18 @@
   import Logging
   import UIKit
   import SwiftUI
+  import Factory
+
+  extension View {
+    public func shareSheet() -> some View {
+      @State var controller = Container.shared.shareController()
+
+      return sheet(isPresented: $controller.isPresented) {
+        ActivityView(activityItems: controller.activityItems)
+          .presentationDetents([.medium])
+      }
+    }
+  }
 
   @Observable
   public class ShareController {
