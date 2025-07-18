@@ -8,7 +8,7 @@
 import Foundation
 
 extension Array where Element: AnyObject {
-  mutating func removeFirst(object: Element) {
+  public mutating func removeFirst(object: Element) {
     if let i = firstIndex(where: { $0 === object }) {
       remove(at: i)
     }
