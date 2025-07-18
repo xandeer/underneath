@@ -28,7 +28,7 @@ extension ModelContext {
   }
 }
 
-public struct Model<T: PersistentModel>: Sendable {
+public struct Model<T: PersistentModel>: Sendable, Codable {
   public let persistentIdentifier: PersistentIdentifier
 
   public init(persistentIdentifier: PersistentIdentifier) {
