@@ -14,3 +14,25 @@ extension Array where Element: AnyObject {
     }
   }
 }
+
+extension Array {
+  public mutating func moveOneStep(from index: Index, direction: Int) -> Bool {
+    let newIndex = index + direction
+    guard indices.contains(index),
+      indices.contains(newIndex),
+      direction == 1 || direction == -1
+    else { return false }
+    swapAt(index, newIndex)
+    return true
+  }
+}
+
+extension Array where Element: Equatable {
+  public mutating func moveOneStep(of element: Element, forward: Bool) -> Bool {
+    if let idx = firstIndex(of: element) {
+      return moveOneStep(from: idx, direction: forward ? 1 : -1)
+    } else {
+      return false
+    }
+  }
+}
