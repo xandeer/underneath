@@ -6,6 +6,7 @@
 
 import SwiftUI
 
+@available(iOS 17.5, *)
 @MainActor
 public class Haptic {
   private let hapticInterval: CGFloat
