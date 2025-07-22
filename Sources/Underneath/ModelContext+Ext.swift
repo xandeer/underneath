@@ -24,7 +24,7 @@ extension ModelContext {
 
     fetchDescriptor.fetchLimit = 1
 
-    return try fetch(fetchDescriptor).first
+    return (try? fetch(fetchDescriptor))?.first
   }
 }
 
@@ -45,6 +45,6 @@ extension Model {
 extension ModelContext {
   public func getOptional<T>(_ model: Model<T>) throws -> T?
   where T: PersistentModel {
-    try self.persistentModel(withID: model.persistentIdentifier)
+    try? self.persistentModel(withID: model.persistentIdentifier)
   }
 }
