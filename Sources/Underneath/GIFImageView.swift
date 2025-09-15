@@ -14,6 +14,20 @@ public struct GIFImageView: UIViewRepresentable {
   @Binding public var isPlaying: Bool  // 外部控制开始/暂停
   public var playOnce: Bool = true  // 每轮播完自动暂停
 
+  public init(
+    name: String,
+    scale: CGFloat = 1,
+    offset: UnitPoint = .zero,
+    isPlaying: Binding<Bool>,
+    playOnce: Bool = true
+  ) {
+    self.name = name
+    self.scale = scale
+    self.offset = offset
+    _isPlaying = isPlaying
+    self.playOnce = playOnce
+  }
+
   // MARK: - Coordinator
 
   public class Coordinator: NSObject {
