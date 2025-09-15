@@ -18,7 +18,9 @@
     #endif
 
     @ViewBuilder
-    public func `if`<Content: View>(_ condition: Bool, then: (Self) -> Content, els: ((Self) -> Content)? = nil) -> some View {
+    public func `if`<Content: View>(_ condition: Bool, then: (Self) -> Content, els: ((Self) -> Content)? = nil)
+      -> some View
+    {
       if condition {
         then(self)
       } else {
@@ -33,32 +35,32 @@
 #endif
 
 extension View {
-  func frameSize(_ size: CGFloat) -> some View {
+  public func frameSize(_ size: CGFloat) -> some View {
     frame(width: size, height: size)
   }
-  
-  func greedyWidth() -> some View {
+
+  public func greedyWidth() -> some View {
     frame(maxWidth: .infinity)
   }
-  
-  func greedyHeight() -> some View {
+
+  public func greedyHeight() -> some View {
     frame(maxHeight: .infinity)
   }
-  
-  func greedySize() -> some View {
+
+  public func greedySize() -> some View {
     greedyWidth().greedyHeight()
   }
-  
-  func largeRounded() -> some View {
+
+  public func largeRounded() -> some View {
     clipShape(RoundedRectangle.large)
   }
-  
-  func fullTap(_ perform: @escaping () -> Void) -> some View {
+
+  public func fullTap(_ perform: @escaping () -> Void) -> some View {
     contentShape(Rectangle())
       .onTapGesture(perform: perform)
   }
 }
 
 extension RoundedRectangle {
-  static let large = RoundedRectangle(cornerRadius: 20)
+  public static let large = RoundedRectangle(cornerRadius: 20)
 }

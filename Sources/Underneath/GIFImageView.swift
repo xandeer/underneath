@@ -8,11 +8,11 @@
 import SwiftUI
 
 public struct GIFImageView: UIViewRepresentable {
-  let name: String
-  var scale: CGFloat = 1
-  var offset: UnitPoint = .zero
-  @Binding var isPlaying: Bool  // 外部控制开始/暂停
-  var playOnce: Bool = true  // 每轮播完自动暂停
+  public let name: String
+  public var scale: CGFloat = 1
+  public var offset: UnitPoint = .zero
+  @Binding public var isPlaying: Bool  // 外部控制开始/暂停
+  public var playOnce: Bool = true  // 每轮播完自动暂停
 
   // MARK: - Coordinator
 
