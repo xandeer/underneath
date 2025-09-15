@@ -31,3 +31,34 @@
     }
   }
 #endif
+
+extension View {
+  func frameSize(_ size: CGFloat) -> some View {
+    frame(width: size, height: size)
+  }
+  
+  func greedyWidth() -> some View {
+    frame(maxWidth: .infinity)
+  }
+  
+  func greedyHeight() -> some View {
+    frame(maxHeight: .infinity)
+  }
+  
+  func greedySize() -> some View {
+    greedyWidth().greedyHeight()
+  }
+  
+  func largeRounded() -> some View {
+    clipShape(RoundedRectangle.large)
+  }
+  
+  func fullTap(_ perform: @escaping () -> Void) -> some View {
+    contentShape(Rectangle())
+      .onTapGesture(perform: perform)
+  }
+}
+
+extension RoundedRectangle {
+  static let large = RoundedRectangle(cornerRadius: 20)
+}

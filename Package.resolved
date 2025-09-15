@@ -1,0 +1,42 @@
+{
+  "originHash" : "568211cea89f9a11a52b4653ed5ff942bcbb3656e1646dc8400b5d8f5e4bc73b",
+  "pins" : [
+    {
+      "identity" : "devicekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/devicekit/DeviceKit",
+      "state" : {
+        "revision" : "513b9d7e7a1bd46504a1009bbab943b75ce2f195",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory",
+      "state" : {
+        "revision" : "ccc898f21992ebc130bc04cc197460a5ae230bcf",
+        "version" : "2.5.3"
+      }
+    },
+    {
+      "identity" : "puppy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sushichop/Puppy.git",
+      "state" : {
+        "revision" : "80ebe6ab25fb7050904647cb96f6ad7bee77bad6",
+        "version" : "0.9.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "3d8596ed08bd13520157f0355e35caed215ffbfa",
+        "version" : "1.6.3"
+      }
+    }
+  ],
+  "version" : 3
+}
