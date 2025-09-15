@@ -13,4 +13,10 @@ extension View {
       focusedField.wrappedValue = nil
     }
   }
+
+  public func hideKeyboardOnTap(focusedField: FocusState<Bool>.Binding) -> some View {
+    fullTap {
+      focusedField.wrappedValue = false
+    }
+  }
 }
