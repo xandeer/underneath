@@ -18,17 +18,27 @@
     #endif
 
     @ViewBuilder
-    public func `if`<Content: View>(_ condition: Bool, then: (Self) -> Content, els: ((Self) -> Content)? = nil)
-      -> some View
-    {
+    public func `if`<Content: View>(
+      _ condition: Bool,
+      transform: (Self) -> Content
+    ) -> some View {
+      if condition {
+        transform(self)
+      } else {
+        self
+      }
+    }
+
+    @ViewBuilder
+    public func `if`<TrueContent: View, FalseContent: View>(
+      _ condition: Bool,
+      then: (Self) -> TrueContent,
+      else els: (Self) -> FalseContent
+    ) -> some View {
       if condition {
         then(self)
       } else {
-        if let els = els {
-          els(self)
-        } else {
-          self
-        }
+        els(self)
       }
     }
   }
