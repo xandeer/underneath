@@ -16,7 +16,7 @@ public struct HTTPLogger: Loggerable, Sendable {
     _ label: String,
     endpoint: URL,
     logLevel: LogLevel = .info,
-    timeout: TimeInterval = 10.0,
+    timeout: TimeInterval = 3.0,
     logFormat: LogFormattable? = nil
   ) {
     self.label = label
@@ -34,9 +34,7 @@ public struct HTTPLogger: Loggerable, Sendable {
 
   public func log(_ level: LogLevel, string: String) {
     queue.async {
-      let logEntry = [
-        "content": string
-      ]
+      let logEntry = ["content": string]
 
       Task {
         await self.sendLog(logEntry)
@@ -46,14 +44,14 @@ public struct HTTPLogger: Loggerable, Sendable {
 
   private func sendLog(_ logEntry: [String: String]) async {
     do {
-      let jsonData = try JSONSerialization.data(withJSONObject: logEntry)
-
+      print("starting to send log")
       var request = URLRequest(url: endpoint)
       request.httpMethod = "POST"
       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-      request.httpBody = jsonData
+      request.httpBody = try? JSONEncoder().encode(logEntry)
 
       let (_, response) = try await session.data(for: request)
+      print("finished sending log")
 
       if let httpResponse = response as? HTTPURLResponse,
         !(200...299).contains(httpResponse.statusCode)

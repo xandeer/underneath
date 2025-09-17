@@ -11,12 +11,13 @@ import Logging
 import Puppy
 
 extension Logger {
-  public static func setup(_ label: String = Bundle.main.bundleIdentifier ?? "Underneath", httpEndpoint: String? = nil) {
+  public static func setup(_ label: String = Bundle.main.bundleIdentifier ?? "Underneath", httpEndpoint: String? = nil)
+  {
     let logFormatter = TimestampLogFormatter()
 
     // 1. Console logger with timestamp
     let console = ConsoleLogger(label, logLevel: .debug, logFormat: logFormatter)
-            var puppy = Puppy(loggers: [console])
+    var puppy = Puppy(loggers: [console])
 
     // 2. File rotation logger with timestamp
     let fileURL = FileManager.default
@@ -29,16 +30,15 @@ extension Logger {
       maxArchivedFilesCount: 3
     )
 
-     if let fileLogger = try? FileRotationLogger(
-        label,
-        logFormat: logFormatter,
-        fileURL: fileURL,
-        rotationConfig: rotationConfig
-     ) {
-       puppy.add(fileLogger)
-     }
+    if let fileLogger = try? FileRotationLogger(
+      label,
+      logFormat: logFormatter,
+      fileURL: fileURL,
+      rotationConfig: rotationConfig
+    ) {
+      puppy.add(fileLogger)
+    }
 
-    
     if let httpEndpoint, let url = URL(string: httpEndpoint) {
       let http = HTTPLogger(label, endpoint: url, logFormat: logFormatter)
       puppy.add(http)
