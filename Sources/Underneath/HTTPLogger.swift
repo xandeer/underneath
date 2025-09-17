@@ -30,6 +30,7 @@ public struct HTTPLogger: Loggerable, Sendable {
     config.timeoutIntervalForRequest = timeout
     config.timeoutIntervalForResource = timeout
     self.session = URLSession(configuration: config)
+    print("Setup http logger")
   }
 
   public func log(_ level: LogLevel, string: String) {
