@@ -34,11 +34,8 @@ public struct HTTPLogger: Loggerable, Sendable {
   }
 
   public func log(_ level: LogLevel, string: String) {
-    //    queue.async {
-    let logEntry = ["content": string]
     Task {
-      await self.sendLog(logEntry)
-      //      }
+      await self.sendLog(["content": string])
     }
   }
 

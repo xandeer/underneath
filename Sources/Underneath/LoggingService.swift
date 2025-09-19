@@ -5,7 +5,6 @@
 //  Created by Kevin Du on 7/15/25.
 //
 
-import DeviceKit
 import Foundation
 import Logging
 import Puppy
@@ -56,24 +55,6 @@ extension Logger {
       #endif
       return handler
     }
-
-    recordAppInfo()
-  }
-
-  private static func recordAppInfo() {
-    // Record device info and app version
-    let unknown = "unknown"
-    let device = Device.current
-    let systemName = device.systemName ?? unknown
-    let systemVersion = device.systemVersion ?? unknown
-    let model = device.description
-
-    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? unknown
-    let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? unknown
-
-    Logger(label: "DeviceInfo").info(
-      "model=\(model), system=\(systemName) \(systemVersion), appVersion=\(appVersion) (\(appBuild))"
-    )
   }
 
   @MainActor
