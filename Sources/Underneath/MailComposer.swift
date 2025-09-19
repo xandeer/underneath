@@ -93,17 +93,13 @@ public struct MailFeedbackComposer<Content: View>: View {
   public init(
     subject: String,
     recipients: [String],
-    content: String,
+    content: String = "",
     label: @escaping () -> Content,
-    showFeedback: Bool,
-    attachments: [(data: Data, mimeType: String, fileName: String)]
   ) {
     self.subject = subject
     self.recipients = recipients
     self.content = content
     self.label = label
-    self.showFeedback = showFeedback
-    self.attachments = attachments
   }
 
   @State private var showFeedback: Bool = false
