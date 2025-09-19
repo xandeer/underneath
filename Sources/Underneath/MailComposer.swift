@@ -108,33 +108,35 @@ public struct MailFeedbackComposer<Content: View>: View {
   private let logger = Logger(label: "MailFeedback")
 
   public var body: some View {
-    label()
-      .fullTap { showFeedback = true }
-      .sheet(isPresented: $showFeedback) {
-        MailComposer(
-          subject: subject,
-          recipients: recipients,
-          body: OS.getAppInfo() + "\n\n" + content,
-          attachments: attachments,
-          onFinish: { result in
-            switch result {
-            case .success(let mailResult):
-              logger.info("Result: \(mailResult.description)")
-            case .failure(let error):
-              logger.error("\(error.localizedDescription)")
+    if MFMailComposeViewController.canSendMail() {
+      label()
+        .fullTap { showFeedback = true }
+        .sheet(isPresented: $showFeedback) {
+          MailComposer(
+            subject: subject,
+            recipients: recipients,
+            body: OS.getAppInfo() + "\n\n" + content,
+            attachments: attachments,
+            onFinish: { result in
+              switch result {
+              case .success(let mailResult):
+                logger.info("Result: \(mailResult.description)")
+              case .failure(let error):
+                logger.error("\(error.localizedDescription)")
+              }
             }
-          }
-        )
-        .task {
-          var attachments: [(data: Data, mimeType: String, fileName: String)] = []
-          for log in Logger.getLogs() ?? [] {
-            if let data = try? Data(contentsOf: log) {
-              attachments.append((data, "text/plain", log.lastPathComponent + ".log"))
+          )
+          .task {
+            var attachments: [(data: Data, mimeType: String, fileName: String)] = []
+            for log in Logger.getLogs() ?? [] {
+              if let data = try? Data(contentsOf: log) {
+                attachments.append((data, "text/plain", log.lastPathComponent + ".log"))
+              }
             }
+            self.attachments = attachments
           }
-          self.attachments = attachments
         }
-      }
+    }
   }
 }
 
