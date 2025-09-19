@@ -16,6 +16,20 @@ public struct MailComposer: UIViewControllerRepresentable {
   var attachments: [(data: Data, mimeType: String, fileName: String)] = []
   var onFinish: ((Result<MFMailComposeResult, Error>) -> Void)?
 
+  public init(
+    subject: String,
+    recipients: [String],
+    body: String,
+    attachments: [(data: Data, mimeType: String, fileName: String)],
+    onFinish: ((Result<MFMailComposeResult, Error>) -> Void)? = nil
+  ) {
+    self.subject = subject
+    self.recipients = recipients
+    self.body = body
+    self.attachments = attachments
+    self.onFinish = onFinish
+  }
+
   public func makeUIViewController(context: Context) -> MFMailComposeViewController {
     let composer = MFMailComposeViewController()
     composer.mailComposeDelegate = context.coordinator
@@ -75,6 +89,22 @@ public struct MailFeedbackComposer<Content: View>: View {
   var recipients: [String]
   var content: String = ""
   @ViewBuilder let label: () -> Content
+
+  public init(
+    subject: String,
+    recipients: [String],
+    content: String,
+    label: @escaping () -> Content,
+    showFeedback: Bool,
+    attachments: [(data: Data, mimeType: String, fileName: String)]
+  ) {
+    self.subject = subject
+    self.recipients = recipients
+    self.content = content
+    self.label = label
+    self.showFeedback = showFeedback
+    self.attachments = attachments
+  }
 
   @State private var showFeedback: Bool = false
   @State private var attachments: [(data: Data, mimeType: String, fileName: String)] = []
