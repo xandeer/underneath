@@ -22,10 +22,9 @@ extension Logger {
     // 2. File rotation logger with timestamp
     let fileURL = FileManager.default
       .urls(for: .documentDirectory, in: .userDomainMask)[0]
-      .appendingPathComponent("logs/\(label).log")
+      .appendingPathComponent("logs/\(label)")
 
     let rotationConfig = RotationConfig(
-      suffixExtension: .date_uuid,
       maxFileSize: 300 * 1024,
       maxArchivedFilesCount: 5
     )
