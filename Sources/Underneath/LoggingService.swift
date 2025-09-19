@@ -26,8 +26,8 @@ extension Logger {
 
     let rotationConfig = RotationConfig(
       suffixExtension: .date_uuid,
-      maxFileSize: 5 * 1024 * 1024,
-      maxArchivedFilesCount: 3
+      maxFileSize: 300 * 1024,
+      maxArchivedFilesCount: 5
     )
 
     if let fileLogger = try? FileRotationLogger(
