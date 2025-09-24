@@ -65,9 +65,63 @@ extension View {
     clipShape(RoundedRectangle.large)
   }
 
-  public func fullTap(_ perform: @escaping () -> Void) -> some View {
+  public func fullTap(_ perform: @escaping () -> Void, _ animation: Animation? = .default) -> some View {
     contentShape(Rectangle())
-      .onTapGesture(perform: perform)
+      .onTapGesture {
+        withAnimation(animation) {
+          perform()
+        }
+      }
+  }
+
+  public func clearGlassIfAvailable<S: Shape, Content: View>(
+    interactive: Bool = false,
+    tint: Color = .clear,
+    in shape: S = RoundedRectangle.large,
+    @ViewBuilder notAvailable: (Self) -> Content = { $0 as Content }
+  ) -> some View {
+    glassEffectIfAvailable(.clear, interactive: interactive, tint: tint, in: shape, notAvailable: notAvailable)
+  }
+
+  public func regularGlassIfAvailable<S: Shape, Content: View>(
+    interactive: Bool = false,
+    tint: Color = .clear,
+    in shape: S = RoundedRectangle.large,
+    @ViewBuilder notAvailable: (Self) -> Content = { $0 as Content }
+  ) -> some View {
+    glassEffectIfAvailable(.regular, interactive: interactive, tint: tint, in: shape, notAvailable: notAvailable)
+  }
+
+  public func glassEffectIfAvailable<S: Shape, Content: View>(
+    _ style: GlassStyle,
+    interactive: Bool = false,
+    tint: Color = .clear,
+    in shape: S = RoundedRectangle.large,
+    @ViewBuilder notAvailable: (Self) -> Content = { $0 as Content }
+  ) -> some View {
+    Group {
+      if #available(iOS 26, *) {
+        glassEffect(style.effect.interactive(interactive).tint(tint), in: shape)
+      } else {
+        notAvailable(self)
+      }
+    }
+  }
+}
+
+public enum GlassStyle {
+  case clear, regular
+}
+
+extension GlassStyle {
+  @available(iOS 26.0, *)
+  public var effect: Glass {
+    switch self {
+    case .clear:
+      return .clear
+    case .regular:
+      return .regular
+    }
   }
 }
 
