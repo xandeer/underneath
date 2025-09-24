@@ -16,16 +16,17 @@ public enum OS {
       false
     }
 
-  @available(iOS 16.0, *)
-  @MainActor
-  public static func openAppSettings() {
-    guard let url = URL(string: UIApplication.openSettingsURLString) else {
-      return
+  #if os(iOS)
+    @MainActor
+    public static func openAppSettings() {
+      guard let url = URL(string: UIApplication.openSettingsURLString) else {
+        return
+      }
+      if UIApplication.shared.canOpenURL(url) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+      }
     }
-    if UIApplication.shared.canOpenURL(url) {
-      UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-  }
+  #endif
 
   public static func getAppInfo() -> String {
     // Record device info and app version
