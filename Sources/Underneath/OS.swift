@@ -16,6 +16,7 @@ public enum OS {
       false
     }
 
+  @available(iOS 2.0, *)
   @MainActor
   public static func openAppSettings() {
     guard let url = URL(string: UIApplication.openSettingsURLString) else {
