@@ -114,7 +114,8 @@ public enum GlassStyle {
 }
 
 extension GlassStyle {
-  @available(iOS 26.0, *)
+  @available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *)
+  @available(visionOS, unavailable)
   public var effect: Glass {
     switch self {
     case .clear:
