@@ -65,7 +65,7 @@ extension View {
     clipShape(RoundedRectangle.large)
   }
 
-  public func fullTap(_ perform: @escaping () -> Void, _ animation: Animation? = .default) -> some View {
+  public func fullTap(_ animation: Animation? = .default, _ perform: @escaping () -> Void) -> some View {
     contentShape(Rectangle())
       .onTapGesture {
         withAnimation(animation) {
