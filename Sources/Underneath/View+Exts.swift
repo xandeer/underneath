@@ -100,7 +100,7 @@ extension View {
     @ViewBuilder notAvailable: (Self) -> Content = { $0 as Content }
   ) -> some View {
     Group {
-      if #available(iOS 26, *) {
+      if #available(iOS 26, watchOS 26, tvOS 26, macOS 26, *) {
         glassEffect(style.effect.interactive(interactive).tint(tint), in: shape)
       } else {
         notAvailable(self)
