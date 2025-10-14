@@ -10,7 +10,14 @@ import SwiftUI
 
 public enum OS {
   public static let rather26 =
-    if #available(iOS 26, watchOS 26, macOS 26, tvOS 26, *) {
+    if #available(iOS 26, watchOS 26, macOS 26, tvOS 26, visionOS 26, *) {
+      true
+    } else {
+      false
+    }
+
+  public static let rather18 =
+    if #available(iOS 18, macOS 15, watchOS 11, tvOS 18, visionOS 2, *) {
       true
     } else {
       false
