@@ -8,13 +8,14 @@
 import Foundation
 
 public enum KeychainHelper {
-  public static func save(_ value: String, for key: String) {
+  public static func save(_ value: String, for key: String, group: String = Bundle.main.bundleIdentifier!) {
     let data = value.data(using: .utf8)!
 
     let query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key,
       kSecValueData as String: data,
+      kSecAttrAccessGroup as String: group,
       kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
       kSecAttrSynchronizable as String: true,
     ]
@@ -23,11 +24,12 @@ public enum KeychainHelper {
     SecItemAdd(query as CFDictionary, nil)
   }
 
-  public static func load(_ key: String) -> String? {
+  public static func load(_ key: String, group: String = Bundle.main.bundleIdentifier!) -> String? {
     let query: [String: Any] = [
       kSecClass as String: kSecClassGenericPassword,
       kSecAttrAccount as String: key,
       kSecReturnData as String: true,
+      kSecAttrAccessGroup as String: group,
       kSecMatchLimit as String: kSecMatchLimitOne,
       kSecAttrSynchronizable as String: true,
     ]
